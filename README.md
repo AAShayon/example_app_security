@@ -4,41 +4,54 @@ This project demonstrates advanced security implementations for Flutter applicat
 
 ## Enhanced Security Features
 
-### 1. Endpoint Obfuscation
+### 1. Dynamic Endpoint Management
+- **Dynamic endpoint fetching**: Endpoints are fetched from secure native storage rather than hardcoded
+- **Encrypted endpoint configuration**: Endpoint configurations are stored encrypted in native layer
+- **Runtime endpoint validation**: Endpoints are validated to prevent malicious redirection
+- **Secure method channel communication**: Endpoints are fetched through secure platform channels
+
+### 2. Endpoint Obfuscation
 - Dynamic endpoint generation to prevent endpoint discovery
 - Time-based endpoint rotation
 - Request signature verification
 - Encrypted parameter transmission
 
-### 2. Advanced Device Security
+### 3. Advanced Device Security
 - Root/jailbreak detection with multiple verification methods
 - Emulator detection
 - Debugger attachment detection
 - Integrity verification of app binaries
 
-### 3. Network Security
+### 4. Network Security
 - Certificate pinning to prevent man-in-the-middle attacks
 - Secure HTTP client with enhanced validation
 - Request/response encryption
 - Session-based authentication tokens
 
-### 4. Data Protection
+### 5. Data Protection
 - Secure storage using platform-specific secure storage (Android Keystore, iOS Keychain)
 - In-memory data obfuscation
 - Encrypted communication channels
 - Secure random number generation
 
-### 5. Anti-Tampering
+### 6. Anti-Tampering
 - App integrity verification
 - Runtime security checks
 - Anti-debugging measures
 - Secure session management
+
+### 7. Anti-Reverse Engineering
+- Dynamic API endpoints that change based on configuration
+- Native-layer security checks
+- Encrypted configuration data
+- Secure method channel communication
 
 ## Architecture
 
 ```
 lib/
 ├── security/
+│   ├── dynamic_endpoint_manager.dart     # Dynamic endpoint management
 │   ├── enhanced_security_manager.dart    # Comprehensive security checks
 │   ├── enhanced_network_security.dart    # Advanced network security
 │   ├── security_manager.dart            # Main security orchestrator
@@ -51,6 +64,13 @@ lib/
 ```
 
 ## Security Implementation Details
+
+### Dynamic Endpoint Management
+The application implements dynamic endpoint management through:
+- Secure method channels to fetch encrypted endpoint configurations from native layer
+- Runtime endpoint validation to prevent malicious redirection
+- Dynamic endpoint updates without app reinstallation
+- Encrypted storage of endpoint configurations in native layer
 
 ### Endpoint Obfuscation
 The application implements multiple layers of endpoint protection:
@@ -68,6 +88,7 @@ Certificate pinning is implemented to prevent man-in-the-middle attacks:
 ### Secure Storage
 Sensitive data is stored using platform-specific secure storage:
 - API keys are stored in Android Keystore or iOS Keychain
+- Endpoint configurations are stored encrypted in native layer
 - Data is encrypted at rest using platform-native encryption
 - Access to secure storage is protected by system-level security
 
@@ -85,12 +106,14 @@ The application performs continuous security validation:
 - Implements Android Keystore for encryption key management
 - Validates app signature to detect tampering
 - Prevents screenshots and screen recording in sensitive areas
+- Stores encrypted endpoint configurations in secure native storage
 
 ### iOS Security
 - Uses Keychain Services for secure data storage
 - Implements app transport security for network communication
 - Validates app integrity using system APIs
 - Prevents screen capture in sensitive areas
+- Stores encrypted endpoint configurations in secure native storage
 
 ## Security Headers
 All API requests include security headers:
@@ -102,6 +125,8 @@ All API requests include security headers:
 - Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
 
 ## Anti-Reverse Engineering
+- Dynamic endpoints fetched through secure method channels
+- Encrypted endpoint configurations stored in native layer
 - Code obfuscation using dart2js in release builds
 - String encryption to hide sensitive information
 - Control flow obfuscation to complicate analysis
@@ -129,12 +154,15 @@ To ensure maximum security in production:
 
 3. Ensure all security checks are enabled (not skipped in release)
 
+4. For the dynamic endpoint feature to work, you need to implement the native-side code for method channels in both Android and iOS
+
 ## Testing Security Features
 
 Security features can be tested in debug mode with appropriate flags, but note that:
 - Some security checks are disabled in debug mode
 - Root/jailbreak detection may not work on development devices
 - Certificate pinning should be tested in release mode
+- Dynamic endpoints can be tested with mock configurations in debug mode
 
 ## Dependencies
 
@@ -157,15 +185,41 @@ Security features can be tested in debug mode with appropriate flags, but note t
 9. **Use secure random number generation** - Cryptographically secure random numbers
 10. **Encrypt data in transit** - All network communication is secured
 11. **Endpoint obfuscation** - Prevents endpoint discovery and scraping
-12. **Runtime security validation** - Continuous security monitoring
+12. **Dynamic endpoint management** - Endpoints are fetched securely from native layer
+13. **Runtime security validation** - Continuous security monitoring
 
 ## API Security
 
 This app uses secure communication patterns:
 - All API communication is encrypted using HTTPS
 - Requests include authentication tokens
-- Endpoints are obfuscated to prevent discovery
+- Endpoints are dynamically fetched from secure native storage
 - Request signatures prevent replay attacks
+- Endpoints are obfuscated to prevent discovery
+
+## Native Implementation Requirements
+
+For the dynamic endpoint management to work properly, you need to implement the following method channels in your native code:
+
+### Android (MainActivity.kt)
+```kotlin
+// You need to implement methods for:
+// - getEncryptedEndpoints
+// - setEncryptedEndpoints
+// - fetchEncryptedConfig
+// - storeEncryptedConfig
+// - verifyAppIntegrity
+```
+
+### iOS (AppDelegate.swift)
+```swift
+// You need to implement methods for:
+// - getEncryptedEndpoints
+// - setEncryptedEndpoints
+// - fetchEncryptedConfig
+// - storeEncryptedConfig
+// - verifyAppIntegrity
+```
 
 ## License
 

@@ -10,12 +10,22 @@ class EnhancedNetworkSecurity {
   factory EnhancedNetworkSecurity() => _instance;
   EnhancedNetworkSecurity._internal();
 
-  static const String _baseUrl = 'https://jsonplaceholder.typicode.com';
+  String _baseUrl = 'https://jsonplaceholder.typicode.com'; // Default fallback
   final Dio _dio = Dio();
   final EnhancedSecurityManager _securityManager = EnhancedSecurityManager();
 
   /// Get the Dio instance for external use
   Dio get dio => _dio;
+
+  /// Set the base URL dynamically
+  void setBaseUrl(String baseUrl) {
+    _baseUrl = baseUrl;
+  }
+
+  /// Get the current base URL
+  String getBaseUrl() {
+    return _baseUrl;
+  }
 
   /// Create a secure HTTP client with enhanced security
   HttpClient secureHttpClient() {

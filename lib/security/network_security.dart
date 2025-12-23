@@ -22,7 +22,12 @@ class NetworkSecurity {
 
   // Get obfuscated base URL
   static String getObfuscatedBaseUrl() {
-    return _enhancedSecurity.getObfuscatedBaseUrl();
+    return _enhancedSecurity.getBaseUrl();
+  }
+
+  // Set base URL dynamically
+  static void setBaseUrl(String baseUrl) {
+    _enhancedSecurity.setBaseUrl(baseUrl);
   }
 
   // Make a secure request with certificate pinning

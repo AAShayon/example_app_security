@@ -46,6 +46,8 @@ class DynamicEndpointManager {
     // These are encrypted default endpoints that are securely stored
     // In a real implementation, these would be securely stored in native storage
     return {
+      'restrooms_search': _decryptEndpoint('L2FwaS92MS9yZXN0cm9vbXMvc2VhcmNo'), // '/api/v1/restrooms/search' when base64 decoded
+      'restrooms_by_location': _decryptEndpoint('L2FwaS92MS9yZXN0cm9vbXMvYnVfbG9jYXRpb24='), // '/api/v1/restrooms/by_location' when base64 decoded
       'posts': _decryptEndpoint('L2FwaS9wb3N0cw=='), // '/api/posts' when base64 decoded
       'users': _decryptEndpoint('L2FwaS91c2Vycw=='), // '/api/users' when base64 decoded
       'comments': _decryptEndpoint('L2FwaS9jb21tZW50cw=='), // '/api/comments' when base64 decoded

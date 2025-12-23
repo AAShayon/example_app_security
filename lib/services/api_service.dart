@@ -324,7 +324,14 @@ class ApiService {
       final dio = NetworkSecurity.secureDioClient();
 
       // Use provided endpoint or get from dynamic manager
-      String actualEndpoint = endpoint ?? _dynamicEndpointManager.getEndpoint('posts') ?? '/posts';
+      String actualEndpoint;
+      if (endpoint != null) {
+        // Check if it's a known dynamic endpoint key
+        final dynamicEndpoint = _dynamicEndpointManager.getEndpoint(endpoint);
+        actualEndpoint = dynamicEndpoint ?? endpoint;
+      } else {
+        actualEndpoint = _dynamicEndpointManager.getEndpoint('posts') ?? '/api/v1/posts';
+      }
 
       // Obfuscate the endpoint
       final obfuscatedEndpoint = NetworkSecurity.obfuscateEndpoint(actualEndpoint);
